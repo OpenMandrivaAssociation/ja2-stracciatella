@@ -39,8 +39,7 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %setup -q
 
 %build
-#% configure2_5x
-%cmake
+%configure
 %make
 
 %install
