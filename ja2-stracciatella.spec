@@ -1,12 +1,15 @@
 Name:           ja2-stracciatella
-Version:        0.15.1
+Version:        0.16.1
 Release:        1
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
 Group:          Games/Other
 Url:            http://ja2-stracciatella.github.io/
-Source:         https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v0.15.1.tar.gz
-BuildRequires:  pkgconfig(sdl)
+Source0:        https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}.tar.gz
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  cmake
+BuildRequires:  cargo
+BuildRequires:  boost-devel
 
 %description
 The goal of the project was to make
@@ -29,6 +32,7 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %files
 %doc *.txt *.md
 %{_bindir}/ja2
+%{_libdir}/libstracciatella.so
 %{_datadir}/ja2
 %{_mandir}/man6/ja2.6.*
 %{_datadir}/applications/%{name}.desktop
@@ -39,18 +43,10 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %setup -q
 
 %build
-%configure
+%cmake -DINSTALL_LIB_DIR=%{_libdir}
 %make
 
 %install
-sed -i "s|%{_prefix}|%{buildroot}%{_prefix}|" Makefile.config
-%makeinstall_std
+%makeinstall_std -C build
 find %{buildroot} -size 0 -delete
 chmod 0755 %{buildroot}%{_bindir}/ja2
-
-%changelog
-
-* Thu Apr 20 2017 abfonly <abfonly@gmail.com> 0.15.1-1
-- (dad6cee) Imported from SRPM
-
-
