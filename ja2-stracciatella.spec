@@ -1,6 +1,6 @@
 Name:           ja2-stracciatella
 Version:        0.16.1
-Release:        1
+Release:        2
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
 Group:          Games/Other
@@ -46,13 +46,13 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %setup -q
 
 %build
-%cmake -DINSTALL_LIB_DIR=%{_libdir}
+%cmake -DINSTALL_LIB_DIR=%{_libdir} -DEXTRA_DATA_DIR=%{_datadir}/ja2/
 %make
 
 
 %install
 %makeinstall_std -C build
-mkdir -p %{buildroot}/%{_libdir}/ja2/
+mkdir -p %{buildroot}/%{_libdir}
 install -m0644 build/src/slog/libslog.so %{buildroot}/%{_libdir}/
 install -m0644 build/dependencies/lib-smacker/libsmacker.so %{buildroot}/%{_libdir}/
 install -m0644 build/dependencies/lib-gtest/libgtest*.so %{buildroot}/%{_libdir}/
