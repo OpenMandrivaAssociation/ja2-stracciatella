@@ -37,6 +37,9 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %{_mandir}/man6/ja2.6.*
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.svg
+%{_libdir}/libslog.so
+%{_libdir}/libsmacker.so
+%{_libdir}/libgtest*.so
 #---------------------------------------------------------
 
 %prep
@@ -46,7 +49,12 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %cmake -DINSTALL_LIB_DIR=%{_libdir}
 %make
 
+
 %install
 %makeinstall_std -C build
+mkdir -p %{buildroot}/%{_libdir}/ja2/
+install -m0644 build/src/slog/libslog.so %{buildroot}/%{_libdir}/
+install -m0644 build/dependencies/lib-smacker/libsmacker.so %{buildroot}/%{_libdir}/
+install -m0644 build/dependencies/lib-gtest/libgtest*.so %{buildroot}/%{_libdir}/
 find %{buildroot} -size 0 -delete
 chmod 0755 %{buildroot}%{_bindir}/ja2
