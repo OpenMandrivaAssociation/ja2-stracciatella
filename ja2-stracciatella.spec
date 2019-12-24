@@ -1,14 +1,19 @@
+%define date 20191224
+
 Name:           ja2-stracciatella
 Version:        0.16.1
-Release:        1
+Release:        1.%{date}.0
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
 Group:          Games/Other
 Url:            http://ja2-stracciatella.github.io/
-Source0:        https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}.tar.gz
+Source0:        https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}-%{?date}.tar.xz
 BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  cmake(RapidJSON)
 BuildRequires:  cmake
 BuildRequires:  cargo
+BuildRequires:  fltk-fluid
+BuildRequires:  fltk-devel
 BuildRequires:  boost-devel
 
 %description
@@ -32,7 +37,9 @@ parameter, e.g. ja2 -resversion ITALIAN.
 %files
 %doc *.txt *.md
 %{_bindir}/ja2
-%{_libdir}/libstracciatella.so
+%{_bindir}/ja2-launcher
+%{_bindir}/ja2-resource-pack
+#% {_libdir}/libstracciatella.so
 %{_datadir}/ja2
 %{_mandir}/man6/ja2.6.*
 %{_datadir}/applications/%{name}.desktop
@@ -40,11 +47,23 @@ parameter, e.g. ja2 -resversion ITALIAN.
 #---------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
+rm -rf dependencies/lib-gtest
+rm -rf dependencies/lib-boost
+rm -rf dependencies/lib-SDL*
 
 %build
-%cmake -DINSTALL_LIB_DIR=%{_libdir}
-%make
+mkdir build
+pushd build
+cmake -DINSTALL_LIB_DIR=%{_libdir} \
+	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
+	-DBUILD_STATIC_LIBS:BOOL=ON \
+	-DLOCAL_GTEST_LIB=OFF \
+	-DWITH_UNITTESTS=OFF \
+	-DLOCAL_RAPIDJSON_LIB=ON \
+	-DEXTRA_DATA_DIR=%{_datadir}/ja2 ../
+
+%make_build
 
 %install
 %makeinstall_std -C build
