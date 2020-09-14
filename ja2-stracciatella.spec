@@ -1,13 +1,11 @@
-%define date 20191224
-
 Name:           ja2-stracciatella
-Version:        0.16.1
-Release:        1.%{date}.0
+Version:	0.17.0
+Release:	1
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
 Group:          Games/Other
 Url:            http://ja2-stracciatella.github.io/
-Source0:        https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}-%{?date}.tar.xz
+Source0:	https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}.tar.gz
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  cmake(RapidJSON)
 BuildRequires:  cmake
