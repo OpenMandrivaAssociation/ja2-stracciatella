@@ -64,6 +64,6 @@ cmake -DINSTALL_LIB_DIR=%{_libdir} \
 %make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 find %{buildroot} -size 0 -delete
 chmod 0755 %{buildroot}%{_bindir}/ja2
