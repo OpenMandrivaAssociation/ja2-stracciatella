@@ -1,5 +1,5 @@
 Name:           ja2-stracciatella
-Version:	0.17.0
+Version:	0.19.1
 Release:	1
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
