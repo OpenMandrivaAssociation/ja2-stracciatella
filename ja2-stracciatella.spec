@@ -4,7 +4,7 @@ Release:	1
 Summary:        Jagged Alliance 2 Stracciatella
 License:        MIT
 Group:          Games/Other
-Url:            http://ja2-stracciatella.github.io/
+Url:            https://ja2-stracciatella.github.io/
 Source0:	https://github.com/ja2-stracciatella/ja2-stracciatella/archive/v%{version}.tar.gz
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  cmake(RapidJSON)
